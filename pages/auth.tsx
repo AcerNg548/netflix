@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 import Input from '@/components/input'
+import {  Check } from '@/components/icons'
+
 
 
 const auth = () => {
@@ -17,9 +19,9 @@ const auth = () => {
 
   return (
     <div className="relative w-full h-full bg-[url('/images/netflixBg.jpg')]  bg-no-repeat bg-center bg-cover sm:bg-black ">
-        <div className="w-full h-full bg-black bg-opacity-50">
-            <nav className="px-12 py-5">
-            <img src="/images/logo.png" alt="logo" className="h-12" />
+        <div className="w-full h-full bg-black lg:bg-opacity-50">
+            <nav className="px-12 py-5 ">
+            <img src="/images/logo.png" alt="logo" className="h-12 " />
             </nav>
             <div className='flex justify-center'>
                 <div className='p-16 bg-black bg-opacity-70 self-center rounded-md mt-2 w-full lg:w-2/5 lg:max-w-md'>
@@ -57,18 +59,34 @@ const auth = () => {
                         {variant === 'login' ? 'Sign in' : 'Sign up'}
                     </button>
                     
-                    <p className="text-neutral-500 mt-12 ">
+                    {variant === 'login' && (
+                            <div className='flex justify-between text-neutral-300 mt-4 text-sm'>
+                    
+                            <div className='flex'>
+                            <label htmlFor='check-box-1' className='cursor-pointer relative'>
+                                <input type='checkbox' id='check-box-1'
+                                className='appearance-none w-5 h-5 bg-neutral-700 rounded-sm  ' />
+                                <Check className={"text-opacity-0 text-black z-10 w-4 h-4 absolute top-0.5 left-0.5 check-1 transition"} />
+                            </label>
+                            <h2 className='ml-1 cursor-default '>Remember me</h2>
+                            </div>      
+                            <h2 className='hover:underline cursor-pointer'>Need help?</h2>
+                            </div>
+                        )}
+
+                    
+                    <p className="text-neutral-500 mt-12  ">
                         {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
                         <span onClick={toggleVariant} className="ml-2 text-white hover:underline cursor-pointer">
-                            Create account
+                        {variant === 'login' ? 'Create an account' : 'Login'}
                         </span>
                     </p>
                     <p className="text-neutral-400 mt-2 ">
-                        <span className="">
+                        <span className="text-xs text-justify leading-tight ">
                             This page is protected by Google reCAPTCHA to ensure you're not a bot.
                         </span>
                         &nbsp;
-                        <button className='text-blue-500 hover:underline'>Learn more</button>
+                        <button className='text-blue-500 hover:underline text-xs'>Learn more</button>
                     </p>
                 </div>
             </div>
