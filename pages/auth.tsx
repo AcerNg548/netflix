@@ -1,21 +1,75 @@
 import { useCallback, useState } from 'react';
 import Input from '@/components/input'
 import {  Check } from '@/components/icons'
+import axios from 'axios';
+import { NextPageContext } from 'next';
+import { getSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import Link from 'next/link';
 
+
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
+}
 
 
 const auth = () => {
 
-    const[email, setEmail] = useState ('');
-    const[name, setName] = useState ('');
-    const[password, setPassword] = useState ('');
+  const router = useRouter();
 
-    const[variant, setVariant] = useState ('login');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [variant, setVariant] = useState('login');
 
     const toggleVariant = useCallback (() => {
         setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login');
     }, [])
 
+    const login = useCallback(async () => {
+        try {
+          await signIn('credentials', {
+            email,
+            password,
+            redirect: false,
+            callbackUrl: '/'
+          });
+    
+          router.push('/profiles');
+        } catch (error) {
+          console.log(error);
+        }
+      }, [email, password, router]);
+    
+      const register = useCallback(async () => {
+        try {
+          await axios.post('/api/register', {
+            email,
+            name,
+            password
+          });
+    
+          login();
+        } catch (error) {
+            console.log(error);
+        }
+      }, [email, name, password, login]);
 
   return (
     <div className="relative w-full h-full bg-[url('/images/netflixBg.jpg')]  bg-no-repeat bg-center bg-cover sm:bg-black ">
@@ -32,7 +86,7 @@ const auth = () => {
                         {variant === 'register' && (
                             <Input 
                             label="Username" 
-                            onChange={(ev: any) => setName(ev.target.value)} 
+                            onChange={(e: any) => setName(e.target.value)} 
                             value={name} 
                             id="name" 
                                />
@@ -40,19 +94,19 @@ const auth = () => {
                         
                         <Input 
                         label="Email or phone number" 
-                        onChange={(ev: any) => setEmail(ev.target.value)} 
+                        onChange={(e: any) => setEmail(e.target.value)} 
                         value={email} 
                         id="email" 
                         type="email"   />
                         <Input 
                         label="Password" 
-                        onChange={(ev: any) => setPassword(ev.target.value)} 
+                        onChange={(e: any) => setPassword(e.target.value)} 
                         value={password} 
                         id="password"
                         type="password"  
                            />
                     </div>
-                    <button 
+                    <button onClick={variant === 'login' ? login : register }
                     className=" bg-red-700 py-3 rounded-md text-white w-full mt-10
                    \
                     "  >
@@ -73,8 +127,17 @@ const auth = () => {
                             <h2 className='hover:underline cursor-pointer'>Need help?</h2>
                             </div>
                         )}
+            
+                      <div className="flex flex-row items-center gap-10 mt-8 justify-center">
+                          <div onClick={() => signIn('google', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                            <FcGoogle size={32} />
+                          </div>
+                          <div onClick={() => signIn('github', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                              <FaGithub size={32} />
+                      </div>
+                      </div>
 
-                    
+                    <div>
                     <p className="text-neutral-500 mt-12  ">
                         {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
                         <span onClick={toggleVariant} className="ml-2 text-white hover:underline cursor-pointer">
@@ -88,9 +151,14 @@ const auth = () => {
                         &nbsp;
                         <button className='text-blue-500 hover:underline text-xs'>Learn more</button>
                     </p>
+                    
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+      
+    </div>
     </div>
   )
 }
