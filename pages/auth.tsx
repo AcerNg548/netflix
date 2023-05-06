@@ -8,6 +8,9 @@ import { useRouter } from 'next/router';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import Link from 'next/link';
+import Footer from '../components/Footer'
+import { motion } from 'framer-motion'
+import Dark from '../components/Dark'
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -72,13 +75,16 @@ const auth = () => {
       }, [email, name, password, login]);
 
   return (
-    <div className="relative w-full h-full bg-[url('/images/netflixBg.jpg')]  bg-no-repeat bg-center bg-cover sm:bg-black ">
-        <div className="w-full h-full bg-black lg:bg-opacity-50">
+
+        <>
+        <Dark />
+        <div className="">
+            
             <nav className="px-12 py-5 ">
-            <img src="/images/logo.png" alt="logo" className="h-12 " />
+            <img src="/images/logo.png" alt="logo" className="h-12  " />
             </nav>
-            <div className='flex justify-center'>
-                <div className='p-16 bg-black bg-opacity-70 self-center rounded-md mt-2 w-full lg:w-2/5 lg:max-w-md'>
+            <div className='flex flex-col justify-center my-10  '>
+                <div className='p-16 bg-black bg-opacity-70 self-center rounded-md mt-2  w-full lg:w-2/5 lg:max-w-md'>
                     <h2 className='text-white text-4xl font-semibold mb-8'>
                         {variant === 'login' ? 'Sign In' : 'Register'}
                     </h2>
@@ -127,21 +133,26 @@ const auth = () => {
                             <h2 className='hover:underline cursor-pointer'>Need help?</h2>
                             </div>
                         )}
-            
-                      <div className="flex flex-row items-center gap-10 mt-8 justify-center">
+
+                        {variant === 'register' && (
+
+                          <div className="flex flex-row items-center gap-10 mt-8 justify-center">
                           <div onClick={() => signIn('google', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                             <FcGoogle size={32} />
                           </div>
                           <div onClick={() => signIn('github', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
-                              <FaGithub size={32} />
-                      </div>
-                      </div>
+    <FaGithub size={32} />
+                          </div>
+                          </div>
+                        )}
+            
+                      
 
                     <div>
                     <p className="text-neutral-500 mt-12  ">
                         {variant === 'login' ? 'New to Netflix?' : 'Already have an account?'}
                         <span onClick={toggleVariant} className="ml-2 text-white hover:underline cursor-pointer">
-                        {variant === 'login' ? 'Create an account' : 'Login'}
+                        {variant === 'login' ? 'Sign up now' : 'Sign in'}
                         </span>
                     </p>
                     <p className="text-neutral-400 mt-2 ">
@@ -151,15 +162,23 @@ const auth = () => {
                         &nbsp;
                         <button className='text-blue-500 hover:underline text-xs'>Learn more</button>
                     </p>
-                    
+
                 </div>
+                
             </div>
+
+            <div className=' bottom-10  '>
+            <Footer />
+            </div>
+            
         </div>
-    </div>
-    <div>
       
+        
+   
     </div>
-    </div>
+    </>
+    
+    
   )
 }
 

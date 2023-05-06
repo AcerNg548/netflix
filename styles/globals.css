@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 body {
-  @apply bg-zinc-900 h-full overflow-x-hidden;
+  @apply bg-[url('/images/netflixBg.jpg')] bg-no-repeat bg-cover bg-fixed;
+  
 }
+
+
+
 
 #__next {
   @apply h-full;
@@ -12,8 +16,10 @@ body {
 
 html {
   @apply h-full;
+  
 }
 
 #check-box-1:checked ~ .check-1{
   @apply text-opacity-100;
+  
 }
