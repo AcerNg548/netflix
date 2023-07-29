@@ -3,10 +3,19 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[url('/images/netflixBg.jpg')] bg-no-repeat bg-cover bg-fixed;
+  @apply bg-dark bg-no-repeat bg-cover bg-fixed;
   
 }
 
+@layer base {
+  
+  @font-face {
+  font-family: "netflixsans";
+  font-weight:  black;
+  src: url("/public/fonts/netflixsans-black.ttf") format("ttf")
+}
+
+}
 
 
 
