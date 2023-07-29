@@ -16,7 +16,7 @@ const signIn = () => {
     
     <div className='flex justify-between my-5 mx-10 ' >
         <nav className="">
-            <img src="/images/logo.png" alt="logo" className="h-12"  />
+            <img src="/images/logo.png" alt="logo" className="h-12"/>
         </nav>
         <div>
             <button className='bg-netRed text-white font-bold text-sm px-4 py-2 rounded-md
