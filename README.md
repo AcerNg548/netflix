@@ -15,7 +15,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Auth page [http://localhost:3000/auth]
-<a href="/public/localhost_3000_auth.pdf">Mock</a>
+<a href="/public/localhost_3000_auth.pdf">Quick view</a>
 
 ## SignIn page [http://localhost:3000/signIn]
-Mock
+<a href="/public/localhost_3000_signIn.pdf">Quick View</a>
