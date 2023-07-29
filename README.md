@@ -14,6 +14,14 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+# A Netflix Nigeria Clone
+signIn page✅
+auth page✅
+....
+.....
+
+more to be added
+
 ## Auth page [http://localhost:3000/auth]
 <a href="/public/localhost_3000_auth.pdf">Quick view</a>
 
