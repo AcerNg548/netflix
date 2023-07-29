@@ -17,5 +17,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Auth page [http://localhost:3000/auth]
 Mock
 
-## SignIn page (http://localhost:3000/signIn]
+## SignIn page [http://localhost:3000/signIn]
 Mock
